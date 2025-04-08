@@ -1,0 +1,32 @@
+﻿@model List<CharacterViewModel>
+
+<h2>Character List</h2>
+<a href="@Url.Action("Create")">Add New Character</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Species</th>
+            <th>Gender</th>
+            <th>Origin</th>
+            <th>Location</th>
+            <th>Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Species</td>
+                <td>@item.Gender</td>
+                <td>@item.Origin?.Name</td>
+                <td>@item.Location?.Name</td>
+                <td>
+                    <img src="@item.Image" alt="Character" width="60" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

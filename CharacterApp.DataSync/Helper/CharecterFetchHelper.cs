@@ -26,11 +26,13 @@ namespace CharacterApp.DataSync.Helper
 
         private async Task SyncDataToDbAsync(List<CharacterResponse> responses)
         {
+            await _characterRepository.ClearData();
+
             foreach (var response in responses)
             {
                 var charecter = new Character()
                 {
-                    Id = response.Id,
+                   // Id = response.Id,
                     Name = response.Name,
                     Status = response.Status,
                     Species = response.Species,
@@ -43,13 +45,16 @@ namespace CharacterApp.DataSync.Helper
 
                 var locationInfo = await _characterRepository.InsertAndGetLocationInfo(response.Location.Name, response.Location.Url);            
                 charecter.Location = locationInfo;
+                charecter.LocationId = locationInfo.Id;
 
                 var originInfo = await _characterRepository.InsertAndGetLocationInfo(response.Origin.Name, response.Origin.Url);
                 charecter.Origin = originInfo;
+                charecter.OriginId = originInfo.Id;
 
                 var episodeInfo = await _characterRepository.InsertAndGetEpisode(response.Episode);
+                string episodeString = string.Join(",", episodeInfo);
 
-                charecter.Episodes = episodeInfo;
+                charecter.Episodes = episodeString;
 
                 await _characterRepository.InsertCharacterAsync(charecter);
             }

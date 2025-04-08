@@ -1,5 +1,6 @@
 ﻿using CharacterApp.Data.Context;
 using CharacterApp.Data.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace CharacterApp.Data.Repository
 {
@@ -12,6 +13,15 @@ namespace CharacterApp.Data.Repository
             _context = context;
         }
 
+        public async Task ClearData()
+        {
+            _context.Characters.RemoveRange(_context.Characters);
+            _context.Episodes.RemoveRange(_context.Episodes);
+            _context.Locations.RemoveRange(_context.Locations);
+
+            await _context.SaveChangesAsync();
+        }
+
         public async Task InsertCharacterAsync(Character character)
         {
             _context.Characters.Add(character);
@@ -20,7 +30,7 @@ namespace CharacterApp.Data.Repository
 
         public async Task<LocationInfo> InsertAndGetLocationInfo(string name, string url)
         {
-            var location = _context.Locations.FirstOrDefault(x => x.Url == url);
+            var location = await _context.Locations.FirstOrDefaultAsync(x => x.Url == url);
 
             if (location != null)
             {
@@ -56,5 +66,26 @@ namespace CharacterApp.Data.Repository
             }
             return result;
         }
+
+        public async Task<List<Character>> GetCharactersAsync()
+        {
+
+            return await _context.Characters.ToListAsync();
+
+        }
+
+        public async Task <LocationInfo> GetLocationInfoById(int id)
+        {
+            return  await _context.Locations.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<List<string>> GetEpisodesByIds(List<int> ids)
+        {
+            return await _context.Episodes
+                                 .Where(e => ids.Contains(e.Id)) 
+                                 .Select(x => x.Url)// Filter by IDs
+                                 .ToListAsync();                  // Asynchronously fetch the episodes
+        }
+
     }
 }

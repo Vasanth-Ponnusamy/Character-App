@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CharacterApp.Data.Model;
+using System.ComponentModel.DataAnnotations;
 
-namespace CharacterApp.Data.Model
+namespace CharacterApp.Models
 {
-    public class Character
+    public class CharacterViewModel
     {
         [Key]
         public int Id { get; set; }
@@ -13,14 +14,14 @@ namespace CharacterApp.Data.Model
         public string Gender { get; set; }
 
         public int OriginId { get; set; }
-        public LocationInfo Origin { get; set; }
+        public LocationInfoViewModel Origin { get; set; }
 
         public int LocationId { get; set; }
-        public LocationInfo Location { get; set; }
+        public LocationInfoViewModel Location { get; set; }
 
         public string Image { get; set; }
 
-        public string Episodes { get; set; }
+        public List<string> Episodes { get; set; }
 
         public string Url { get; set; }
         public DateTime Created { get; set; }

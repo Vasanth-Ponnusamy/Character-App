@@ -20,12 +20,17 @@ namespace CharacterApp.DataSync
                                 .Build();
 
             var services = new ServiceCollection();
-
             services.AddDbContext<AppDbContext>(options =>
-                  options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), sqlOptions =>
+                {
+                    sqlOptions.EnableRetryOnFailure();
+                    //sqlOptions.TrustServerCertificate(true);
+                }));
+
 
             services.AddScoped<ICharacterRepository, CharacterRepository>();
             services.AddScoped<CharecterFetchHelper>();
+
 
             var serviceProvider = services.BuildServiceProvider();
             var helper = serviceProvider.GetRequiredService<CharecterFetchHelper>();

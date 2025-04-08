@@ -14,13 +14,20 @@ namespace CharacterApp.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Character>()
-                .OwnsOne(c => c.Origin);
+                .HasOne(c => c.Origin)
+                .WithMany()
+                .HasForeignKey(c => c.OriginId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Character>()
-                .OwnsOne(c => c.Location);
+                .HasOne(c => c.Location)
+                .WithMany()
+                .HasForeignKey(c => c.LocationId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);
         }
+
     }
 
 }

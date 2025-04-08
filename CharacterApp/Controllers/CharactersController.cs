@@ -1,6 +1,9 @@
 ﻿using CharacterApp.Data.Model;
+using CharacterApp.Models;
 using CharacterApp.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace CharacterApp.Controllers
 {
@@ -22,22 +25,70 @@ namespace CharacterApp.Controllers
 
         public IActionResult Create()
         {
-            return View();
+          var speciesList = new List<string>
+            {
+                "Alien",
+                "Animal",
+                "Cronenberg",
+                "Human",
+                "Humanoid",
+                "Mythological Creature",
+                "Poopybutthole",
+                "Robot",
+                "unknown"
+            };
+            var genderList = new List<string>
+            {
+                "Female",
+                "Genderless",
+                "Male",
+                "unknown"
+
+            };
+
+            ViewBag.SpeciesList = new SelectList(speciesList);
+            ViewBag.genderList = new SelectList(genderList);
+
+            return View(new CharacterViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Character character)
+        public IActionResult Create(CharacterViewModel model)
         {
-            return null;
-            //if (ModelState.IsValid)
-            //{
-            //    _context.Add(character);
-            //    await _context.SaveChangesAsync();
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //return View(character);
+            if (ModelState.IsValid)
+            {
+                //var character = new Character
+                //{
+                //    Name = model.Name,
+                //    Species = model.Species,
+                //    Gender = model.Gender,
+                //    LocationId = model.LocationId,
+                //    OriginId = model.OriginId
+                //};
+                //_characterService.InsertCharactersAsync();
+
+                //_context.Characters.Add(character);
+                //_context.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            // Repopulate Dropdowns if validation fails
+            ViewBag.SpeciesList = new SelectList(new List<string>
+             {
+                "Alien", "Animal", "Cronenberg", "Human", "Humanoid",
+                "Mythological Creature", "Poopybutthole", "Robot", "unknown"
+             });
+
+            ViewBag.GenderList = new SelectList(new List<string>
+            {
+                "Female", "Genderless", "Male", "unknown"
+            });
+
+            return View(model);
         }
+
     }
 
 }

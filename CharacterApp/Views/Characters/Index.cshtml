@@ -1,4 +1,9 @@
-﻿@model List<CharacterViewModel>
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+@model IPagedList<CharacterViewModel>
+
+
 
 <h2>Character List</h2>
 <a href="@Url.Action("Create")">Add New Character</a>
@@ -30,3 +35,6 @@
         }
     </tbody>
 </table>
+<div class="text-center">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>

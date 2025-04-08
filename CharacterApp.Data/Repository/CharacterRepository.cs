@@ -87,5 +87,15 @@ namespace CharacterApp.Data.Repository
                                  .ToListAsync();                  // Asynchronously fetch the episodes
         }
 
+        public async Task<List<LocationInfo>> GetLocations()
+        {
+            return await _context.Locations.ToListAsync();
+        }
+
+        public async Task<List<Episode>> GetEpisodes()
+        {
+            return await _context.Episodes.ToListAsync();
+        }
+
     }
 }

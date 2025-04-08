@@ -57,16 +57,22 @@ namespace CharacterApp.Services
             return characterResult;
         }
 
-        //public async Task<LocationInfo> GetLocationInfo(int id)
-        //{
-
-        //}
 
 
 
-        public Task InsertCharactersAsync(List<CharacterViewModel> characters)
+
+        public async Task InsertCharactersAsync(Character characters)
         {
-            throw new NotImplementedException();
+            await _characterRepository.InsertCharacterAsync(characters);
+        }
+        public async Task<List<LocationInfo>> GetLocationInfos()
+        {
+            return await _characterRepository.GetLocations();
+        }
+
+        public async Task<List<Episode>> GetEpisodes()
+        {
+            return await _characterRepository.GetEpisodes();
         }
     }
 }

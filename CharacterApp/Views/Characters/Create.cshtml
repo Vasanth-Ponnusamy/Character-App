@@ -18,30 +18,29 @@
         @Html.DropDownListFor(model => model.Gender, (SelectList)ViewBag.GenderList, "Select Gender", new { @class = "form-control" })
     </div>
 
-    <div class="form-group">
+@*     <div class="form-group">
         <label for="Origin">Origin</label>
-        <input type="text" id="Origin" name="Origin" class="form-control" value="@Model.Origin" required />
+        <input type="text" id="OriginId" name="OriginId" class="form-control" value="@Model.OriginId" required />
     </div>
 
     <div class="form-group">
         <label for="Location">Location</label>
-        <input type="text" id="Location" name="Location" class="form-control" value="@Model.Location" required />
-    </div>
-
-@*     <div class="form-group">
-        <label for="Image">Image URL</label>
-        <input type="text" id="Image" name="Image" class="form-control" value="@Model.Image" />
+        <input type="text" id="LocationId" name="LocationId" class="form-control" value="@Model.LocationId" required />
     </div> *@
-@* 
-    <div class="form-group">
-        <label for="Url">URL</label>
-        <input type="text" id="Url" name="Url" class="form-control" value="@Model.Url" required />
-    </div>
 
     <div class="form-group">
-        <label for="Created">Created (Date)</label>
-        <input type="datetime-local" id="Created" name="Created" class="form-control" value="@Model.Created.ToString("yyyy-MM-ddTHH:mm")" required />
-    </div> *@
+        <label for="LocationId">Location</label>
+        @Html.DropDownListFor(model => model.LocationId, (SelectList)ViewBag.Locations, "Select Location", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="LocationId">Origin</label>
+        @Html.DropDownListFor(model => model.OriginId, (SelectList)ViewBag.Locations, "Select Origin", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="Episodes">Episodes</label>
+        @Html.ListBoxFor(model => model.Episodes, (SelectList)ViewBag.Episodes, new { @class = "form-control", multiple = "multiple" })
+    </div>
+
     <div class="form-group mt-3">
     <button type="submit" class="btn btn-primary">Create Character</button>
     </div>

@@ -6,6 +6,9 @@ namespace CharacterApp.Services.Interface
     public interface ICharacterService
     {
         Task<List<CharacterViewModel>> GetCharactersAsync();
-        Task InsertCharactersAsync(List<CharacterViewModel> characters);
+        Task InsertCharactersAsync(Character characters);
+        Task<List<LocationInfo>> GetLocationInfos();
+        Task<List<Episode>> GetEpisodes();
+
     }
 }

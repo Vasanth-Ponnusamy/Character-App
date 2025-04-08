@@ -12,5 +12,9 @@ namespace CharacterApp.Data.Repository
 
         Task<LocationInfo> GetLocationInfoById(int id);
         Task<List<string>> GetEpisodesByIds(List<int> ids);
+        Task<List<LocationInfo>> GetLocations();
+        Task<List<Episode>> GetEpisodes();
+
+
     }
 }

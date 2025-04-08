@@ -66,7 +66,7 @@ namespace CharacterApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CharacterViewModel model)
+        public async Task<IActionResult> Create(CharacterViewModel model)
         {
 
             //if (ModelState.IsValid)
@@ -80,7 +80,7 @@ namespace CharacterApp.Controllers
                     OriginId = model.OriginId,
                     Episodes = string.Join(", ", model.Episodes)
                 };
-                _characterService.InsertCharactersAsync(character);
+               await _characterService.InsertCharactersAsync(character);
 
 
                 return RedirectToAction("Index");

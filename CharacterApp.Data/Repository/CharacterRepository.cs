@@ -24,8 +24,11 @@ namespace CharacterApp.Data.Repository
 
         public async Task InsertCharacterAsync(Character character)
         {
-            _context.Characters.Add(character);
-            await _context.SaveChangesAsync();
+                character.Created = character.Created == default ? DateTime.UtcNow : character.Created;
+                character.Status = string.IsNullOrEmpty(character.Status) ? "Alive" : character.Status;
+
+                _context.Characters.Add(character);
+                await _context.SaveChangesAsync();
         }
 
         public async Task<LocationInfo> InsertAndGetLocationInfo(string name, string url)
@@ -70,8 +73,8 @@ namespace CharacterApp.Data.Repository
         public async Task<List<Character>> GetCharactersAsync()
         {
 
-            return await _context.Characters.ToListAsync();
-
+                return await _context.Characters.ToListAsync();
+            
         }
 
         public async Task <LocationInfo> GetLocationInfoById(int id)

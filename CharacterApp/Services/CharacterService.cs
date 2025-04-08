@@ -8,12 +8,10 @@ namespace CharacterApp.Services
 {
     public class CharacterService : ICharacterService
     {
-        private readonly AppDbContext _context;
         private readonly ICharacterRepository _characterRepository;
 
-        public CharacterService(AppDbContext context, ICharacterRepository characterRepository)
+        public CharacterService(ICharacterRepository characterRepository)
         {
-            _context = context;
             _characterRepository = characterRepository;
 
         }

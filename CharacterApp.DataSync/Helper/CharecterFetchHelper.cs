@@ -32,7 +32,6 @@ namespace CharacterApp.DataSync.Helper
             {
                 var charecter = new Character()
                 {
-                   // Id = response.Id,
                     Name = response.Name,
                     Status = response.Status,
                     Species = response.Species,

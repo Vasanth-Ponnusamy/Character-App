@@ -14,6 +14,7 @@ namespace CharacterApp.Data.Repository
         Task<List<string>> GetEpisodesByIds(List<int> ids);
         Task<List<LocationInfo>> GetLocations();
         Task<List<Episode>> GetEpisodes();
+        Task<List<Character>> GetCharactersByPlanet(string planetName);
 
 
     }

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterApp.DataSync", "Ch
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterApp.Data", "CharacterApp.Data\CharacterApp.Data.csproj", "{301A8A97-9AB2-4DE4-A474-72AEB0A2F582}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterApp.Test", "CharacterApp.Test\CharacterApp.Test.csproj", "{00DB537A-8AF7-D0CB-FE65-B4F9F76FD541}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{301A8A97-9AB2-4DE4-A474-72AEB0A2F582}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{301A8A97-9AB2-4DE4-A474-72AEB0A2F582}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{301A8A97-9AB2-4DE4-A474-72AEB0A2F582}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00DB537A-8AF7-D0CB-FE65-B4F9F76FD541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00DB537A-8AF7-D0CB-FE65-B4F9F76FD541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00DB537A-8AF7-D0CB-FE65-B4F9F76FD541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00DB537A-8AF7-D0CB-FE65-B4F9F76FD541}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

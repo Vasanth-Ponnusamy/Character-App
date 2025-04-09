@@ -25,9 +25,9 @@ namespace CharacterApp.Services
             {
                 var locationInfo = await _characterRepository.GetLocationInfoById(c.LocationId);
                 var orginInfo = await _characterRepository.GetLocationInfoById(c.OriginId);
-                var episodeIds = c.Episodes.Split(',')           // Split the comma-separated string
-                           .Select(id => int.Parse(id))  // Convert each part to an integer
-                           .ToList();                    // Create a list of integers
+                var episodeIds = c.Episodes.Split(',')           
+                           .Select(id => int.Parse(id))  
+                           .ToList();                   
 
                 var episodes = await _characterRepository.GetEpisodesByIds(episodeIds);
 
@@ -45,8 +45,8 @@ namespace CharacterApp.Services
                     Episodes = episodes,  
                     Url = c.Url,
                     Created = c.Created,
-                    Location = new LocationInfoViewModel() { Id = locationInfo.Id, Name = locationInfo.Name, Url = locationInfo.Url},  // Assigned the Location info fetched asynchronously
-                    Origin = new LocationInfoViewModel() { Id = orginInfo.Id, Name = orginInfo.Name, Url = orginInfo.Url}  // Assigned the Location info fetched asynchronously
+                    Location = new LocationInfoViewModel() { Id = locationInfo.Id, Name = locationInfo.Name, Url = locationInfo.Url},  
+                    Origin = new LocationInfoViewModel() { Id = orginInfo.Id, Name = orginInfo.Name, Url = orginInfo.Url}  
                 };
 
                 characterResult.Add(characterViewModel);
@@ -54,10 +54,6 @@ namespace CharacterApp.Services
 
             return characterResult;
         }
-
-
-
-
 
         public async Task InsertCharactersAsync(Character characters)
         {
@@ -71,6 +67,16 @@ namespace CharacterApp.Services
         public async Task<List<Episode>> GetEpisodes()
         {
             return await _characterRepository.GetEpisodes();
+        }
+        public async Task<List<CharacterViewModel>> GetCharactersByPlanetAsync(string planetName)
+        {
+            var characters = await _characterRepository.GetCharactersByPlanet(planetName);
+            return characters.Select(c => new CharacterViewModel
+            {
+                Name = c.Name,
+                Species = c.Species,
+                Gender = c.Gender,
+            }).ToList();
         }
     }
 }

@@ -21,11 +21,9 @@ body {
     margin-bottom: 60px;
 }
 
-
 .text-center {
     text-align: center;
 }
-
 
 .pagination {
     display: inline-flex;
@@ -34,35 +32,71 @@ body {
     margin: 20px 0;
 }
 
-    .pagination li {
-        margin: 0 5px;
-    }
+.pagination li {
+    margin: 0 5px;
+}
 
-    .pagination a {
-        display: block;
-        padding: 8px 16px;
-        background-color: #f0f0f0;
-        border: 1px solid #ddd;
-        text-decoration: none;
-        color: #333;
-        border-radius: 4px;
-        transition: background-color 0.3s, color 0.3s;
-    }
+.pagination a {
+    display: block;
+    padding: 8px 16px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #333;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
 
-        .pagination a:hover {
-            background-color: #007bff;
-            color: white;
-        }
+.pagination a:hover {
+    background-color: #0d6efd;
+    color: #fff;
+    transform: translateY(-2px);
+}
 
-    .pagination .active a {
-        background-color: #007bff;
-        color: white;
-        border-color: #007bff;
-    }
+.pagination .active a {
+    background-color: #007bff !important;   
+    color: white !important;                 
+    border-color: #007bff !important;        
+    font-weight: bold;                      
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);  
+}
 
-    .pagination .disabled a {
-        background-color: #f0f0f0;
-        color: #ccc;
-        border-color: #ddd;
-        pointer-events: none;
-    }
+.pagination .disabled a {
+    background-color: #f8f9fa;
+    color: #ccc;
+    border-color: #ddd;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+td img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.add-new-character {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 8px 16px;
+    background-color: #0d6efd;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+}

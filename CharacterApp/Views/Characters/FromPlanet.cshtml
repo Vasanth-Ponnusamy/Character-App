@@ -1,0 +1,23 @@
+﻿@model List<CharacterViewModel>
+
+<h2>Characters from @ViewBag.PlanetName</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Species</th>
+            <th>Gender</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var character in Model)
+        {
+            <tr>
+                <td>@character.Name</td>
+                <td>@character.Species</td>
+                <td>@character.Gender</td>
+            </tr>
+        }
+    </tbody>
+</table>

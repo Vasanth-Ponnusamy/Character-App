@@ -72,22 +72,22 @@ namespace CharacterApp.Data.Repository
 
         public async Task<List<Character>> GetCharactersAsync()
         {
-
-                return await _context.Characters.ToListAsync();
-            
+            return await _context.Characters.ToListAsync();
         }
 
-        public async Task <LocationInfo> GetLocationInfoById(int id)
+        public async Task<LocationInfo?> GetLocationInfoById(int id)
         {
-            return  await _context.Locations.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Locations
+                                 .AsNoTracking()
+                                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<List<string>> GetEpisodesByIds(List<int> ids)
         {
             return await _context.Episodes
                                  .Where(e => ids.Contains(e.Id)) 
-                                 .Select(x => x.Url)// Filter by IDs
-                                 .ToListAsync();                  // Asynchronously fetch the episodes
+                                 .Select(x => x.Url)
+                                 .ToListAsync();                 
         }
 
         public async Task<List<LocationInfo>> GetLocations()
@@ -99,6 +99,15 @@ namespace CharacterApp.Data.Repository
         {
             return await _context.Episodes.ToListAsync();
         }
+
+        public async Task<List<Character>> GetCharactersByPlanet(string planetName)
+        {
+            return await _context.Characters
+                .Include(c => c.Location)
+                .Where(c => c.Location.Name == planetName)
+                .ToListAsync();
+        }
+
 
     }
 }

@@ -9,28 +9,25 @@
     </div>
     <div class="form-group">
         <label for="Species">Species</label>
-        @* @Html.DropDownListFor(model => model.Species, (SelectList)ViewBag.SpeciesList, "Select Species", new { @class = "form-control" }) *@
         <input type="text" id="Species" name="Species" class="form-control" value="@Model.Species" required />
     </div>
 
     <div class="form-group">
         <label for="Gender">Gender</label>
-        @* @Html.DropDownListFor(model => model.Gender, (SelectList)ViewBag.GenderList, "Select Gender", new { @class = "form-control" }) *@
         <input type="text" id="Gender" name="Gender" class="form-control" value="@Model.Gender" required />
     </div>
 
     <div class="form-group">
         <label for="LocationId">Location</label>
-        @Html.DropDownListFor(model => model.LocationId, (SelectList)ViewBag.Locations, "Select Location", new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.LocationId, "", new { @class = "text-danger" })
+        @Html.DropDownListFor(model => model.LocationId, (SelectList)ViewBag.Locations, "Select Location", new { @class = "form-control", @required = "required" })
     </div>
     <div class="form-group">
         <label for="LocationId">Origin</label>
-        @Html.DropDownListFor(model => model.OriginId, (SelectList)ViewBag.Locations, "Select Origin", new { @class = "form-control" })
+        @Html.DropDownListFor(model => model.OriginId, (SelectList)ViewBag.Locations, "Select Origin", new { @class = "form-control", @required = "required" })
     </div>
     <div class="form-group">
         <label for="Episodes">Episodes</label>
-        @Html.ListBoxFor(model => model.Episodes, (SelectList)ViewBag.Episodes, new { @class = "form-control", multiple = "multiple" })
+        @Html.ListBoxFor(model => model.Episodes, (SelectList)ViewBag.Episodes, new { @class = "form-control", multiple = "multiple", @required = "required" })
     </div>
 
     <div class="form-group mt-3">

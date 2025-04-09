@@ -24,7 +24,6 @@ namespace CharacterApp.DataSync
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), sqlOptions =>
                 {
                     sqlOptions.EnableRetryOnFailure();
-                    //sqlOptions.TrustServerCertificate(true);
                 }));
 
 

@@ -9,6 +9,8 @@ namespace CharacterApp.Services.Interface
         Task InsertCharactersAsync(Character characters);
         Task<List<LocationInfo>> GetLocationInfos();
         Task<List<Episode>> GetEpisodes();
+        Task<List<CharacterViewModel>> GetCharactersByPlanetAsync(string planetName);
+
 
     }
 }

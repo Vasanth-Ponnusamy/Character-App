@@ -4,6 +4,7 @@ using CharacterApp.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using X.PagedList.Extensions;
 
 namespace CharacterApp.Controllers
@@ -11,20 +12,35 @@ namespace CharacterApp.Controllers
     public class CharactersController : Controller
     {
         private readonly ICharacterService _characterService;
+        private readonly IMemoryCache _cache;
+        private static readonly string CacheKey = "CharacterListCache";
+        private static DateTime _lastFetchTime = DateTime.MinValue;
 
-        public CharactersController(ICharacterService characterService)
+        public CharactersController(ICharacterService characterService, IMemoryCache memoryCache)
         {
             _characterService = characterService;
+            _cache = memoryCache;
         }
 
 
         public async Task<IActionResult> Index(int? page)
         {
-            int pageSize = 50;  // records per page
-            int pageNumber = page ?? 1;  // if null, default to 1
+            bool fromDb = false;
+            List<CharacterViewModel> characters;
 
-            var characters = await _characterService.GetCharactersAsync();
+            if (!_cache.TryGetValue(CacheKey, out characters) || DateTime.UtcNow - _lastFetchTime > TimeSpan.FromMinutes(5))
+            {
+                characters = await _characterService.GetCharactersAsync();
+                _cache.Set(CacheKey, characters);
+                _lastFetchTime = DateTime.UtcNow;
+                fromDb = true;
+            }
 
+            // Add response header
+            Response.Headers["from-database"] = fromDb.ToString().ToLower();
+
+            int pageSize = 10;  
+            int pageNumber = page ?? 1; 
             var pagedCharacters = characters.ToPagedList(pageNumber, pageSize);
 
             return View(pagedCharacters);
@@ -68,9 +84,6 @@ namespace CharacterApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CharacterViewModel model)
         {
-
-            //if (ModelState.IsValid)
-            //{
                 var character = new Character
                 {
                     Name = model.Name,
@@ -81,21 +94,11 @@ namespace CharacterApp.Controllers
                     Episodes = string.Join(", ", model.Episodes)
                 };
                await _characterService.InsertCharactersAsync(character);
+            _cache.Remove(CacheKey);
+            _lastFetchTime = DateTime.MinValue;
 
+            return RedirectToAction("Index");
 
-                return RedirectToAction("Index");
-            //}
-            //if (!ModelState.IsValid)
-            //{
-            //    var errorDetails = ModelState
-            //        .Where(x => x.Value.Errors.Count > 0)
-            //        .Select(x => new { x.Key, Errors = x.Value.Errors.Select(e => e.ErrorMessage).ToList() })
-            //        .ToList();
-
-            //    return BadRequest(errorDetails); // This will return a detailed list of the validation errors
-            //}
-
-            // Repopulate Dropdowns if validation fails
             ViewBag.SpeciesList = new SelectList(new List<string>
              {
                 "Alien", "Animal", "Cronenberg", "Human", "Humanoid",
